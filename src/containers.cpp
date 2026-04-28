@@ -6,12 +6,11 @@
 
 void Load_Data(std::vector<Car> &cars, const std::string &in_file)
 {
-    // TODO: Load data from file
     Car temp;
-    // TODO: Create a Car structure with the column information
+    
     csvstream csvin(in_file);
     std::map<std::string, std::string> row;
-    // TODO: Add Car objects to the vector
+ 
     while (csvin >> row)
     {
         temp.vin = row["vin"];
@@ -20,7 +19,7 @@ void Load_Data(std::vector<Car> &cars, const std::string &in_file)
         temp.color = row["car_color"];
         temp.value = std::stod(row["value"]);
         temp.state = row["state"];
-        //add record to vector
+       
         cars.push_back(temp);
     }
 }
@@ -41,7 +40,7 @@ Car Car_Value_Analytics(std::vector<Car> &cars, int operation)
     }
 }
 
-//all 1930 or later
+
 std::vector<Car> Cars_from_decade(std::vector<Car> &cars, int decade)
 {
     decade = decade - (decade % 10);
