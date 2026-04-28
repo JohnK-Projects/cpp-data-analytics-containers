@@ -1,16 +1,5 @@
-/*
- *  Catch v2.9.1
- *  Generated: 2019-06-17 11:59:24.363643
- *  ----------------------------------------------------------
- *  This file has been merged from multiple headers. Please don't edit it directly
- *  Copyright (c) 2019 Two Blue Cubes Ltd. All rights reserved.
- *
- *  Distributed under the Boost Software License, Version 1.0. (See accompanying
- *  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
- */
 #ifndef TWOBLUECUBES_SINGLE_INCLUDE_CATCH_HPP_INCLUDED
 #define TWOBLUECUBES_SINGLE_INCLUDE_CATCH_HPP_INCLUDED
-// start catch.hpp
 
 
 #define CATCH_VERSION_MAJOR 2
@@ -23,8 +12,6 @@
 #    pragma GCC system_header
 #endif
 
-// start catch_suppress_warnings.h
-
 #ifdef __clang__
 #   ifdef __ICC // icpc defines the __clang__ macro
 #       pragma warning(push)
@@ -36,23 +23,18 @@
 #       pragma clang diagnostic ignored "-Wcovered-switch-default"
 #    endif
 #elif defined __GNUC__
-     // Because REQUIREs trigger GCC's -Wparentheses, and because still
-     // supported version of g++ have only buggy support for _Pragmas,
-     // Wparentheses have to be suppressed globally.
 #    pragma GCC diagnostic ignored "-Wparentheses" // See #674 for details
 
 #    pragma GCC diagnostic push
 #    pragma GCC diagnostic ignored "-Wunused-variable"
 #    pragma GCC diagnostic ignored "-Wpadded"
 #endif
-// end catch_suppress_warnings.h
+
 #if defined(CATCH_CONFIG_MAIN) || defined(CATCH_CONFIG_RUNNER)
 #  define CATCH_IMPL
 #  define CATCH_CONFIG_ALL_PARTS
 #endif
 
-// In the impl file, we want to have access to all parts of the headers
-// Can also be used to sanely support PCHs
 #if defined(CATCH_CONFIG_ALL_PARTS)
 #  define CATCH_CONFIG_EXTERNAL_INTERFACES
 #  if defined(CATCH_CONFIG_DISABLE_MATCHERS)
@@ -81,8 +63,6 @@
 #  define CATCH_PLATFORM_WINDOWS
 #endif
 
-// end catch_platform.h
-
 #ifdef CATCH_IMPL
 #  ifndef CLARA_CONFIG_MAIN
 #    define CLARA_CONFIG_MAIN_NOT_DEFINED
@@ -90,35 +70,9 @@
 #  endif
 #endif
 
-// start catch_user_interfaces.h
-
 namespace Catch {
     unsigned int rngSeed();
 }
-
-// end catch_user_interfaces.h
-// start catch_tag_alias_autoregistrar.h
-
-// start catch_common.h
-
-// start catch_compiler_capabilities.h
-
-// Detect a number of compiler features - by compiler
-// The following features are defined:
-//
-// CATCH_CONFIG_COUNTER : is the __COUNTER__ macro supported?
-// CATCH_CONFIG_WINDOWS_SEH : is Windows SEH supported?
-// CATCH_CONFIG_POSIX_SIGNALS : are POSIX signals supported?
-// CATCH_CONFIG_DISABLE_EXCEPTIONS : Are exceptions enabled?
-// ****************
-// Note to maintainers: if new toggles are added please document them
-// in configuration.md, too
-// ****************
-
-// In general each macro has a _NO_<feature name> form
-// (e.g. CATCH_CONFIG_NO_POSIX_SIGNALS) which disables the feature.
-// Many features, at point of detection, define an _INTERNAL_ macro, so they
-// can be combined, en-mass, with the _NO_ forms later.
 
 #ifdef __cplusplus
 
@@ -163,16 +117,13 @@ namespace Catch {
 #       define CATCH_INTERNAL_UNSUPPRESS_ZERO_VARIADIC_WARNINGS \
             _Pragma( "clang diagnostic pop" )
 
-#endif // __clang__
+#endif 
 
-////////////////////////////////////////////////////////////////////////////////
-// Assume that non-Windows platforms support posix signals by default
+
 #if !defined(CATCH_PLATFORM_WINDOWS)
     #define CATCH_INTERNAL_CONFIG_POSIX_SIGNALS
 #endif
 
-////////////////////////////////////////////////////////////////////////////////
-// We know some environments not to support full POSIX signals
 #if defined(__CYGWIN__) || defined(__QNX__) || defined(__EMSCRIPTEN__) || defined(__DJGPP__)
     #define CATCH_INTERNAL_CONFIG_NO_POSIX_SIGNALS
 #endif
@@ -182,26 +133,20 @@ namespace Catch {
 #       define CATCH_CONFIG_COLOUR_NONE
 #endif
 
-////////////////////////////////////////////////////////////////////////////////
-// Android somehow still does not support std::to_string
+
 #if defined(__ANDROID__)
 #    define CATCH_INTERNAL_CONFIG_NO_CPP11_TO_STRING
 #endif
 
-////////////////////////////////////////////////////////////////////////////////
-// Not all Windows environments support SEH properly
+
 #if defined(__MINGW32__)
 #    define CATCH_INTERNAL_CONFIG_NO_WINDOWS_SEH
 #endif
 
-////////////////////////////////////////////////////////////////////////////////
-// PS4
 #if defined(__ORBIS__)
 #    define CATCH_INTERNAL_CONFIG_NO_NEW_CAPTURE
 #endif
 
-////////////////////////////////////////////////////////////////////////////////
-// Cygwin
 #ifdef __CYGWIN__
 
 // Required for some versions of Cygwin to declare gettimeofday
