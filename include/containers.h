@@ -21,10 +21,10 @@ void Load_Data(std::vector<Car> &cars, const std::string &in_file);
 #define MAX 1
 #define MIN 2
 
-// TODO: Structure for data from file
+//Structure for data from file
 
 void Load_Data(std::vector<Car> &cars, const std::string &in_file);
-// TODO: Other functions
+//Other functions
 
 Car Car_Value_Analytics(std::vector<Car> &cars, int operation);
 
